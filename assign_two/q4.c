@@ -1,0 +1,67 @@
+//Empty ascending stack
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Stack{
+    int *ArrPointer;
+    int top;
+    int size;
+}Stack;
+
+void createStack(Stack *stk, int sz) {
+    if(sz <= 0) {
+        printf("Enter valid size!!\n");
+        return;
+    }
+    stk->size = sz;
+    stk->top = -1;
+    stk->ArrPointer = (int *)malloc(sizeof(int)*sz);
+}
+
+void push(Stack *stk, int element) {
+    if(stk->top == stk->size) {
+        printf("Stack overflow!!\n");
+        return;
+    }    
+    if(stk->top == -1) {stk->top = 0;}
+    
+    stk->ArrPointer[stk->top] = element;
+    stk->top = stk->top + 1;
+}
+
+int pop(Stack *stk) {
+    if(stk->top == 0) {
+        printf("Stack underflow!!\n");
+        return -1;
+    }
+    stk->top = stk->top - 1;
+    int retval = stk->ArrPointer[stk->top];
+    return retval;
+}
+
+void print(Stack *stk) {
+    if(stk->top == -1) {return;}
+    for(int i = stk->top-1; i >= 0; i--) {
+        printf("%d ", stk->ArrPointer[i]);
+    }
+    printf("\n");
+}
+    
+int main()
+{
+    Stack stk;
+    Stack *stkPtr = &stk;
+    
+    createStack(stkPtr, 5);
+    push(stkPtr, 1);
+    push(stkPtr, 2);
+    //push(stkPtr, 3);
+    //push(stkPtr, 4);
+    //push(stkPtr, 5);
+    //push(stkPtr, 6);
+    //pop(stkPtr);
+    //pop(stkPtr);
+    pop(stkPtr);
+    print(stkPtr);
+    return 0;
+}
